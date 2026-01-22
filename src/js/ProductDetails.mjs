@@ -30,7 +30,7 @@ export default class ProductDetails {
         element.querySelector('#productName').innerText = this.product.Brand.Name;
         element.querySelector('#productNameWithoutBrand').innerText =
             this.product.NameWithoutBrand;
-        element.querySelector('#productImage').src = this.product.Image;
+        element.querySelector('#productImage').src = this.product.Images.PrimaryLarge;
         element.querySelector('#productImage').alt = this.product.Name;
         element.querySelector('#productFinalPrice').innerText =
             '$' + this.product.FinalPrice;

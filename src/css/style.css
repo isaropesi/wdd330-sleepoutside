@@ -275,3 +275,31 @@ footer {
 .hide {
   display: none;
 }
+
+/* Category cards */
+.category-card {
+  flex: 1 1 45%;
+  margin: 0.5rem;
+  padding: 1rem;
+  text-align: center;
+  border: 1px solid var(--light-grey);
+  transition: transform 0.2s, box-shadow 0.2s;
+  max-width: 200px;
+}
+
+.category-card:hover {
+  transform: scale(1.05);
+  box-shadow: 2px 2px 8px var(--light-grey);
+}
+
+.category-card img {
+  width: 80px;
+  height: 80px;
+  margin-bottom: 0.5rem;
+}
+
+@media screen and (min-width: 500px) {
+  .category-card {
+    flex: 1 1 20%;
+  }
+}
