@@ -1,4 +1,4 @@
-import { getLocalStorage, loadHeaderFooter } from './utils.mjs';
+import { getLocalStorage, setLocalStorage, loadHeaderFooter, updateCartCount } from './utils.mjs';
 
 loadHeaderFooter();
 
@@ -7,6 +7,13 @@ function renderCartContents() {
   if (cartItems && cartItems.length > 0) {
     const htmlItems = cartItems.map((item) => cartItemTemplate(item));
     document.querySelector('.product-list').innerHTML = htmlItems.join('');
+    // Add event listeners to remove buttons
+    document.querySelectorAll('.cart-card__remove').forEach(button => {
+      button.addEventListener('click', (e) => {
+        const idToRemove = e.target.dataset.id;
+        removeFromCart(idToRemove);
+      });
+    });
 
     // Calculate total
     const total = cartItems.reduce((sum, item) => sum + item.FinalPrice, 0);
@@ -19,11 +26,24 @@ function renderCartContents() {
   }
 }
 
+function removeFromCart(id) {
+  let cartItems = getLocalStorage('so-cart');
+  // Find index of the first item with matching id
+  const index = cartItems.findIndex(item => item.Id === id);
+  if (index !== -1) {
+    cartItems.splice(index, 1);
+    setLocalStorage('so-cart', cartItems);
+    renderCartContents();
+    updateCartCount();
+  }
+}
+
 function cartItemTemplate(item) {
   const newItem = `<li class="cart-card divider">
+  <span class="cart-card__remove" data-id="${item.Id}">X</span>
   <a href="#" class="cart-card__image">
     <img
-      src="${item.Image}"
+      src="${item.Images.PrimaryMedium}"
       alt="${item.Name}"
     />
   </a>
