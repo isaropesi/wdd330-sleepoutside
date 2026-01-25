@@ -70,9 +70,9 @@ export async function loadHeaderFooter() {
 }
 
 export function updateCartCount() {
-  const cartItems = getLocalStorage('so-cart');
+  const cartItems = getLocalStorage('so-cart') || [];
   const countElement = document.querySelector('#cart-count');
-  if (cartItems && cartItems.length > 0 && countElement) {
+  if (Array.isArray(cartItems) && cartItems.length > 0 && countElement) {
     countElement.textContent = cartItems.length;
     countElement.classList.remove('hide');
   } else if (countElement) {
