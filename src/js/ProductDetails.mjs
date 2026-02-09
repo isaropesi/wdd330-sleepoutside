@@ -22,7 +22,19 @@ export default class ProductDetails {
         if (!Array.isArray(cart)) {
             cart = [];
         }
-        cart.push(this.product);
+
+        // Check if item already exists in cart
+        const existingItemIndex = cart.findIndex(item => item.Id === this.product.Id);
+
+        if (existingItemIndex !== -1) {
+            // Item exists, increment quantity
+            cart[existingItemIndex].Quantity = (cart[existingItemIndex].Quantity || 1) + 1;
+        } else {
+            // New item, add with quantity 1
+            this.product.Quantity = 1;
+            cart.push(this.product);
+        }
+
         setLocalStorage('so-cart', cart);
         updateCartCount();
         // Show success message

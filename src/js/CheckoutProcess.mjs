@@ -13,13 +13,14 @@ function formDataToJSON(formElement) {
 }
 
 // takes the items currently stored in the cart (localstorage) and returns them in a simplified form.
+// takes the items currently stored in the cart (localstorage) and returns them in a simplified form.
 function packageItems(items) {
     // convert the list of products from localStorage to the simpler form required for the checkout process.
     return items.map(item => ({
         id: item.Id,
         name: item.Name,
         price: item.FinalPrice,
-        quantity: 1
+        quantity: item.Quantity || 1
     }));
 }
 
@@ -44,7 +45,7 @@ export default class CheckoutProcess {
         const subtotalElement = document.querySelector(`${this.outputSelector} #subtotal`);
 
         if (this.list && Array.isArray(this.list) && this.list.length > 0) {
-            this.itemTotal = this.list.reduce((total, item) => total + (item.FinalPrice || 0), 0);
+            this.itemTotal = this.list.reduce((total, item) => total + ((item.FinalPrice || 0) * (item.Quantity || 1)), 0);
             subtotalElement.innerText = this.itemTotal.toFixed(2);
         } else {
             subtotalElement.innerText = '0.00';
@@ -57,9 +58,9 @@ export default class CheckoutProcess {
         this.tax = this.itemTotal * 0.06;
 
         // Shipping: Use $10 for the first item plus $2 for each additional item after that.
-        const itemCount = this.list ? this.list.length : 0;
-        if (itemCount > 0) {
-            this.shipping = 10 + (itemCount - 1) * 2;
+        const totalQuantity = this.list ? this.list.reduce((total, item) => total + (item.Quantity || 1), 0) : 0;
+        if (totalQuantity > 0) {
+            this.shipping = 10 + (totalQuantity - 1) * 2;
         } else {
             this.shipping = 0;
         }

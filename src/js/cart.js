@@ -16,7 +16,7 @@ function renderCartContents() {
     });
 
     // Calculate total
-    const total = cartItems.reduce((sum, item) => sum + (item.FinalPrice || 0), 0);
+    const total = cartItems.reduce((sum, item) => sum + ((item.FinalPrice || 0) * (item.Quantity || 1)), 0);
     document.querySelector('#cart-total-amount').textContent = total.toFixed(2);
     document.querySelector('.cart-footer').classList.remove('hide');
   } else {
@@ -56,7 +56,7 @@ function cartItemTemplate(item) {
     <h2 class="card__name">${item.Name || 'Product'}</h2>
   </a>
   <p class="cart-card__color">${color}</p>
-  <p class="cart-card__quantity">qty: 1</p>
+  <p class="cart-card__quantity">qty: ${item.Quantity}</p>
   <p class="cart-card__price">$${(item.FinalPrice || 0).toFixed(2)}</p>
 </li>`;
 
