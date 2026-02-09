@@ -20,6 +20,57 @@
   <main class="divider">
     <section class="products">
       <h2>Review & Place your Order</h2>
+
+      <form id="checkout-form" name="checkout">
+        <fieldset>
+          <legend>Customer Information</legend>
+
+          <label for="fname">First Name <span class="required">*</span></label>
+          <input type="text" id="fname" name="fname" required />
+
+          <label for="lname">Last Name <span class="required">*</span></label>
+          <input type="text" id="lname" name="lname" required />
+        </fieldset>
+
+        <fieldset>
+          <legend>Shipping Address</legend>
+
+          <label for="street">Street Address <span class="required">*</span></label>
+          <input type="text" id="street" name="street" required />
+
+          <label for="city">City <span class="required">*</span></label>
+          <input type="text" id="city" name="city" required />
+
+          <label for="state">State <span class="required">*</span></label>
+          <input type="text" id="state" name="state" required />
+
+          <label for="zip">Zip Code <span class="required">*</span></label>
+          <input type="text" id="zip" name="zip" required />
+        </fieldset>
+
+        <fieldset>
+          <legend>Payment Information</legend>
+
+          <label for="cardNumber">Credit Card Number <span class="required">*</span></label>
+          <input type="text" id="cardNumber" name="cardNumber" required />
+
+          <label for="expiration">Expiration Date <span class="required">*</span></label>
+          <input type="text" id="expiration" name="expiration" placeholder="MM/YY" required />
+
+          <label for="code">Security Code <span class="required">*</span></label>
+          <input type="text" id="code" name="code" required />
+        </fieldset>
+
+        <button type="submit">Complete Order</button>
+      </form>
+
+      <aside class="order-summary">
+        <h3>Order Summary</h3>
+        <p>Subtotal: $<span id="subtotal">0.00</span></p>
+        <p>Shipping: $<span id="shipping">0.00</span></p>
+        <p>Tax: $<span id="tax">0.00</span></p>
+        <p class="order-total"><strong>Order Total: $<span id="orderTotal">0.00</span></strong></p>
+      </aside>
     </section>
   </main>
 
